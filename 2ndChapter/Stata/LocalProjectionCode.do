@@ -5,7 +5,7 @@ set more off
 * Net oil exporting countries
 *------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 * Importing Excel file
-import excel "\\vspsrv1\home$\crojasqu\PersonalData\Downloads\DataSetX.xlsx", sheet("Sheet1") firstrow
+import excel "/Users/carlosrojasquiroz/Documents/Research/PhD Thesis/Visual Studio/PhDThesis/2ndChapter/Stata/Data/DataSetX.xlsx", sheet("Sheet1") firstrow
 replace MONTH = mofd(MONTH)
 format MONTH %tm
 * Making some replacements in some variables
@@ -94,9 +94,9 @@ gen u6_ls=0
 gen d6_ls=0
 quiet forvalues h = 0/36 {
 	 xtreg FRR`h' SHOCK l(1/12).FRR l(1/12).SHOCK l(1/12).WTI l(1/12).VIX if OPEC==0, fe vce(robust) 
-replace b2_ls = _b[SHOCK]                      if _n == `h'+1
-replace u2_ls = _b[SHOCK] + 1.645* _se[SHOCK]  if _n == `h'+1
-replace d2_ls = _b[SHOCK] - 1.645* _se[SHOCK]  if _n == `h'+1
+replace b6_ls = _b[SHOCK]                      if _n == `h'+1
+replace u6_ls = _b[SHOCK] + 1.645* _se[SHOCK]  if _n == `h'+1
+replace d6_ls = _b[SHOCK] - 1.645* _se[SHOCK]  if _n == `h'+1
 eststo
 }
 * Estimation 7: Middle-income countries
@@ -126,7 +126,7 @@ replace d8_ls = _b[WTI] - 1.645* _se[WTI]  if _n == `h'+1
 eststo
 }
 *------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-export excel b_ls u_ls d_ls b2_ls u2_ls d2_ls b3_ls u3_ls d3_ls b4_ls u4_ls d4_ls b5_ls u5_ls d5_ls b6_ls u6_ls d6_ls b7_ls u7_ls d7_ls b8_ls u8_ls d8_ls  using "C:\Users\crojasqu\OneDrive - Istituto Universitario Europeo\PhD Thesis\Ch2\ResultsX_LEVEL.xlsx", firstrow(variables) replace
+export excel b_ls u_ls d_ls b2_ls u2_ls d2_ls b3_ls u3_ls d3_ls b4_ls u4_ls d4_ls b5_ls u5_ls d5_ls b6_ls u6_ls d6_ls b7_ls u7_ls d7_ls b8_ls u8_ls d8_ls  using "/Users/carlosrojasquiroz/Documents/Research/PhD Thesis/Visual Studio/PhDThesis/2ndChapter/Stata/Results/ResultsX_LEVEL.xlsx", firstrow(variables) replace
 *------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 clear
 cls
@@ -134,7 +134,7 @@ cls
 * Net oil importing countries
 *------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 * Importing Excel file
-import excel "\\vspsrv1\home$\crojasqu\PersonalData\Downloads\DataSetM.xlsx", sheet("Sheet1") firstrow
+import excel "/Users/carlosrojasquiroz/Documents/Research/PhD Thesis/Visual Studio/PhDThesis/2ndChapter/Stata/Data/DataSetM.xlsx", sheet("Sheet1") firstrow
 replace MONTH = mofd(MONTH)
 format MONTH %tm
 * Making some replacements in some variables
@@ -229,5 +229,5 @@ replace d8_ls = _b[WTI] - 1.645* _se[WTI]  if _n == `h'+1
 eststo
 }
 *------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-export excel b_ls u_ls d_ls b3_ls u3_ls d3_ls b4_ls u4_ls d4_ls b5_ls u5_ls d5_ls b7_ls u7_ls d7_ls b8_ls u8_ls d8_ls using "C:\Users\crojasqu\OneDrive - Istituto Universitario Europeo\PhD Thesis\Ch2\ResultsM_LEVEL.xlsx", firstrow(variables) replace
+export excel b_ls u_ls d_ls b3_ls u3_ls d3_ls b4_ls u4_ls d4_ls b5_ls u5_ls d5_ls b7_ls u7_ls d7_ls b8_ls u8_ls d8_ls using "/Users/carlosrojasquiroz/Documents/Research/PhD Thesis/Visual Studio/PhDThesis/2ndChapter/Stata/Results/ResultsM_LEVEL.xlsx", firstrow(variables) replace
 *------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
