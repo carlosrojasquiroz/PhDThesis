@@ -5,5 +5,8 @@ addpath(genpath('Data')); addpath(genpath('Functions'));
 p = Parameters();
 k = ShockKanzig(p);
 d = DataManagement(p,k);
+%---------------------------------------------------------------------------------
+addpath(genpath('Stata/Results')); 
+%---------------------------------------------------------------------------------
 LocalProjection(p)
 

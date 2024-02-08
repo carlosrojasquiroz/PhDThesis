@@ -24,6 +24,13 @@ cds.MONTH.Format = 'MMM-yyyy';
 CDS = stack(cds,p.codeX,'NewDataVariableName','CDS5Y');
 CDS = sortrows(CDS,{'CDS5Y_Indicator','MONTH'},'ascend');
 %---------------------------------------------------------------------------------
+% EMBI for net oil exports
+%---------------------------------------------------------------------------------
+embi = readtimetable('CountryData.xlsx','Sheet','EMBIX');
+embi.MONTH.Format = 'MMM-yyyy';
+EMBI = stack(embi,p.codeX,'NewDataVariableName','EMBI');
+EMBI = sortrows(EMBI,{'EMBI_Indicator','MONTH'},'ascend');
+%---------------------------------------------------------------------------------
 % Constructing dataset for net oil exports
 %---------------------------------------------------------------------------------
 Idx = [];
@@ -39,6 +46,7 @@ SX.WTI = repmat(oo.WTIREAL(smpl),N,1);
 SX.VIX = repmat(oo.VIX(smpl),N,1);
 SX.BAA = repmat(oo.BAA(smpl),N,1);
 SX.CDS5Y = CDS.CDS5Y;
+SX.EMBI = EMBI.EMBI;
 SX.SHOCK = repmat(k.shock.COMP(smpl),N,1);
 % Middle-Income Oil Exporters
 SX.MI = zeros(N*T,1);
@@ -72,6 +80,13 @@ cds.MONTH.Format = 'MMM-yyyy';
 CDS = stack(cds,p.codeM,'NewDataVariableName','CDS5Y');
 CDS = sortrows(CDS,{'CDS5Y_Indicator','MONTH'},'ascend');
 %---------------------------------------------------------------------------------
+% EMBI for net oil exports
+%---------------------------------------------------------------------------------
+embi = readtimetable('CountryData.xlsx','Sheet','EMBIM');
+embi.MONTH.Format = 'MMM-yyyy';
+EMBI = stack(embi,p.codeM,'NewDataVariableName','EMBI');
+EMBI = sortrows(EMBI,{'EMBI_Indicator','MONTH'},'ascend');
+%---------------------------------------------------------------------------------
 % Constructing dataset for net oil imports
 %---------------------------------------------------------------------------------
 Idx = [];
@@ -87,6 +102,7 @@ SM.WTI = repmat(oo.WTIREAL(smpl),N,1);
 SM.VIX = repmat(oo.VIX(smpl),N,1);
 SM.BAA = repmat(oo.BAA(smpl),N,1);
 SM.CDS5Y = CDS.CDS5Y;
+SM.EMBI = EMBI.EMBI;
 SM.SHOCK = repmat(k.shock.COMP(smpl),N,1);
 % Middle-Income Oil Exporters
 SM.MI = zeros(N*T,1);
@@ -101,7 +117,10 @@ end
 % Outcome
 %---------------------------------------------------------------------------------
 d.SX = SX;
-writetimetable(SX,'Stata/Data/DataSetX.xlsx')
+
 d.SM = SM;
-writetimetable(SM,'Stata/Data/DataSetM.xlsx')
+if p.writeExcel
+    writetimetable(SX,'Stata/Data/DataSetX.xlsx')
+    writetimetable(SM,'Stata/Data/DataSetM.xlsx')
+end
 %---------------------------------------------------------------------------------

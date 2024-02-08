@@ -23,7 +23,7 @@ p.smplEndEProxy = datetime(2023,3,1);
 %---------------------------------------------------------------------------------
 p.showFigs = true; % Show figures
 p.saveFigs = true; % Save figures
-p.dummys = false; % Include financial crises dummy variables in LP estimation
+p.writeExcel = true; % Save data output in Excel
 %---------------------------------------------------------------------------------
 % Countries
 %---------------------------------------------------------------------------------
@@ -57,11 +57,9 @@ p.OPEC = {'DZA','AGO','COG','ECU','GAB','IDN','IRN','IRQ','KWT','LBY','NGA','QAT
 %---------------------------------------------------------------------------------
 % LP specifications
 %---------------------------------------------------------------------------------
-p.pLP = 12; % Lag order in the Local Projections
 p.contractMax = 13; % Maximum number of future oil contracts
-p.horizon = 24; % Horizon for IRFs
-p.alpha = 0.1; % Significance level for bands (alpha=0.1 => 90% CIs (two SD))
-p.alpha2 = 0.32; % Significance level for bands (alpha=0.32 => 68% CIs (two SD))
+p.horizonFRR = 36; % Horizon for IRFs
+p.horizonCDS = 18; % Horizon for IRFs
 p.signIRFs = 1; % Sign of the IRF from the Local Projection
 %---------------------------------------------------------------------------------
 % Customized colors

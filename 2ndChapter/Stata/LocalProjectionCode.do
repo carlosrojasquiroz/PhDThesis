@@ -125,8 +125,25 @@ replace u8_ls = _b[WTI] + 1.645* _se[WTI]  if _n == `h'+1
 replace d8_ls = _b[WTI] - 1.645* _se[WTI]  if _n == `h'+1
 eststo
 }
+* Generate LHS variables for the LPs
+forvalues h = 0/36 {
+	gen EMBI`h' = f`h'.EMBI 	 
+}
+* Estimation 9: baseline model (all countries)
+eststo clear
+cap drop b9_ls u9_ls d9_ls
+gen b9_ls=0
+gen u9_ls=0
+gen d9_ls=0
+quiet forvalues h = 0/36 {
+	 xtreg EMBI`h' SHOCK l(1/12).EMBI l(1/12).SHOCK l(1/12).WTI l(1/12).VIX, fe vce(robust) 
+replace b9_ls = _b[SHOCK]                      if _n == `h'+1
+replace u9_ls = _b[SHOCK] + 1.645* _se[SHOCK]  if _n == `h'+1
+replace d9_ls = _b[SHOCK] - 1.645* _se[SHOCK]  if _n == `h'+1
+eststo
+}
 *------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-export excel b_ls u_ls d_ls b2_ls u2_ls d2_ls b3_ls u3_ls d3_ls b4_ls u4_ls d4_ls b5_ls u5_ls d5_ls b6_ls u6_ls d6_ls b7_ls u7_ls d7_ls b8_ls u8_ls d8_ls  using "/Users/carlosrojasquiroz/Documents/Research/PhD Thesis/Visual Studio/PhDThesis/2ndChapter/Stata/Results/ResultsX_LEVEL.xlsx", firstrow(variables) replace
+export excel b_ls u_ls d_ls b2_ls u2_ls d2_ls b3_ls u3_ls d3_ls b4_ls u4_ls d4_ls b5_ls u5_ls d5_ls b6_ls u6_ls d6_ls b7_ls u7_ls d7_ls b8_ls u8_ls d8_ls b9_ls u9_ls d9_ls using "/Users/carlosrojasquiroz/Documents/Research/PhD Thesis/Visual Studio/PhDThesis/2ndChapter/Stata/Results/ResultsX_LEVEL.xlsx", firstrow(variables) replace
 *------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 clear
 cls
@@ -228,6 +245,23 @@ replace u8_ls = _b[WTI] + 1.645* _se[WTI]  if _n == `h'+1
 replace d8_ls = _b[WTI] - 1.645* _se[WTI]  if _n == `h'+1
 eststo
 }
+* Generate LHS variables for the LPs
+forvalues h = 0/36 {
+	gen EMBI`h' = f`h'.EMBI 	 
+}
+* Estimation 9: baseline model (all countries)
+eststo clear
+cap drop b9_ls u9_ls d9_ls
+gen b9_ls=0
+gen u9_ls=0
+gen d9_ls=0
+quiet forvalues h = 0/36 {
+	 xtreg EMBI`h' SHOCK l(1/12).EMBI l(1/12).SHOCK l(1/12).WTI l(1/12).VIX, fe vce(robust) 
+replace b9_ls = _b[SHOCK]                      if _n == `h'+1
+replace u9_ls = _b[SHOCK] + 1.645* _se[SHOCK]  if _n == `h'+1
+replace d9_ls = _b[SHOCK] - 1.645* _se[SHOCK]  if _n == `h'+1
+eststo
+}
 *------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-export excel b_ls u_ls d_ls b3_ls u3_ls d3_ls b4_ls u4_ls d4_ls b5_ls u5_ls d5_ls b7_ls u7_ls d7_ls b8_ls u8_ls d8_ls using "/Users/carlosrojasquiroz/Documents/Research/PhD Thesis/Visual Studio/PhDThesis/2ndChapter/Stata/Results/ResultsM_LEVEL.xlsx", firstrow(variables) replace
+export excel b_ls u_ls d_ls b3_ls u3_ls d3_ls b4_ls u4_ls d4_ls b5_ls u5_ls d5_ls b7_ls u7_ls d7_ls b8_ls u8_ls d8_ls b9_ls u9_ls d9_ls using "/Users/carlosrojasquiroz/Documents/Research/PhD Thesis/Visual Studio/PhDThesis/2ndChapter/Stata/Results/ResultsM_LEVEL.xlsx", firstrow(variables) replace
 *------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
